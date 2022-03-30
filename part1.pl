@@ -9,7 +9,7 @@ sumsq_even([], 0).
 sumsq_even([Head|Tail], Sum) :-
     1 is Head mod 2,
     sumsq_even(Tail, Sum1),
-    Sum is Sum1 + Head.
+    Sum is Sum1.
 sumsq_even([Head|Tail], Sum) :-
     0 is Head mod 2,
     sumsq_even(Tail, Sum1),
