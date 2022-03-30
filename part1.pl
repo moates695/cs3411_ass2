@@ -1,8 +1,11 @@
 % Marcus Oates
+% z5257541
 % COMP3411 Term 1 2022
-% Assignment 2 Part 1
-
+% Assignment 2 - Part 1
+ 
+%-------------------------------------------------------------------------------
 % Question 1.1
+%-------------------------------------------------------------------------------
 
 % sumsq_even(Numbers, Sum) - sum the square of even integers in Numbers list
 
@@ -18,8 +21,9 @@ sumsq_even([Head|Tail], Sum) :-
     sumsq_even(Tail, Sum1),
     Sum is Sum1 + Head * Head.
 
-
+%-------------------------------------------------------------------------------
 % Question 1.2
+%-------------------------------------------------------------------------------
 
 % action(Action, State, NewState)
 % state(RLoc, RHC, SWC, MW, RHM)
@@ -56,21 +60,29 @@ action(mcc,                                 % Move cc from off to cs
        state(off, RHC, SWC, MW, RHM), 
        state(cs, RHC, SWC, MW, RHM)).     
 
-action(puc,                                 
-       state(cs, false, true, MW, RHM),
-       state(cs, true, true, MW, RHM)).
+action(puc,                                 % Pick up coffee                           
+       state(cs, false, true, MW, RHM),     % Before action, robot at Coffee Shop 
+                                            % without coffee and Sam wants coffee
+       state(cs, true, true, MW, RHM)).     % After action, robot at Coffee Shop 
+                                            % with coffee and Sam wants coffee
 
-action(dc,
-       state(off, true, true, MW, RHM),
-       state(off, false, false, MW, RHM)).
+action(dc,                                  % Deliver coffee
+       state(off, true, true, MW, RHM),     % Before action, robot at Sams Office
+                                            % with coffee and Sam wants coffee
+       state(off, false, false, MW, RHM)).  % After action, robot at Sams Office
+                                            % without coffee and Sam does not want coffee
 
-action(pum,
-       state(mr, RHC, SWC, true, false),
-       state(mr, RHC, SWC, false, true)).
+action(pum,                                 % Pick up mail
+       state(mr, RHC, SWC, true, false),    % Before action, robot at Mail Room
+                                            % without mail and mail is waiting
+       state(mr, RHC, SWC, false, true)).   % After action, robot at Mail Room
+                                            % with mail and mail is not waiting
 
-action(dm,
-       state(off, RHC, SWC, MW, true),
-       state(off, RHC, SWC, MW, false)).
+action(dm,                                  % Deliver mail
+       state(off, RHC, SWC, MW, true),      % Before action, robot at Sams Office
+                                            % with mail
+       state(off, RHC, SWC, MW, false)).    % After action, robot at Sams Office
+                                            % without mail
 
 % plan(StartState, FinalState, Plan)
 
@@ -83,3 +95,7 @@ plan(State1, GoalState, [Action1 | RestofPlan]) :-
 id_plan(Start, Goal, Plan) :-
     append(Plan, _, _),
     plan(Start, Goal, Plan).
+
+%-------------------------------------------------------------------------------
+% Question 1.3
+%-------------------------------------------------------------------------------
