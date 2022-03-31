@@ -9,24 +9,26 @@
 
 % sumsq_even(Numbers, Sum) - sum the square of even integers in Numbers list
 
-sumsq_even([], 0).
+sumsq_even([], 0).                          % Empty list has zero sum
 
-sumsq_even([Head|Tail], Sum) :-
-    1 is Head mod 2,
-    sumsq_even(Tail, Sum1),
-    Sum is Sum1.
+sumsq_even([Head|Tail], Sum) :-             % Rule where Head is odd
+    1 is Head mod 2,                        % Head must be odd
+    sumsq_even(Tail, Sum1),                 % Sum1 is the sum of the Tail
+    Sum is Sum1.                            % Add Sum1 to Sum
 
-sumsq_even([Head|Tail], Sum) :-
-    0 is Head mod 2,
-    sumsq_even(Tail, Sum1),
-    Sum is Sum1 + Head * Head.
+sumsq_even([Head|Tail], Sum) :-             % Rule where Head is even
+    0 is Head mod 2,                        % Head must be even
+    sumsq_even(Tail, Sum1),                 % Sum1 is the sum of the Tail
+    Sum is Sum1 + Head * Head.              % Add Sum1 and the square of Head to Sum
 
 %-------------------------------------------------------------------------------
 % Question 1.2
 %-------------------------------------------------------------------------------
 
-% action(Action, State, NewState)
-% state(RLoc, RHC, SWC, MW, RHM)
+% action(Action, State, NewState) - taking Action moves robot from State to Newstate
+% state(RLoc, RHC, SWC, MW, RHM) - current state of robot where RLoc = robot location
+%                                  RHC = robot has coffee, SWC = Sam wants coffee,
+%                                  MW = mail waiting, RHM = robot has mail
 
 action(mc,                                  % Move c from cs to off
        state(cs, RHC, SWC, MW, RHM), 
@@ -84,7 +86,8 @@ action(dm,                                  % Deliver mail
        state(off, RHC, SWC, MW, false)).    % After action, robot at Sams Office
                                             % without mail
 
-% plan(StartState, FinalState, Plan)
+
+% Below is given code for plan and id_plan rules
 
 plan(State, State, []).
 
@@ -102,6 +105,10 @@ id_plan(Start, Goal, Plan) :-
 
 :- op(300, xfx, <-).
 
+% intra_construction(A, B, C, D, E) - input is two rules A & B with idential heads, 
+%                                     returns the intersection of A & B in C with 
+%                                     the differences D & E cast to created predicate z
+
 intra_construction(C1 <- B1, C2 <- B2, C1 <- ZB, C <- D1, C <- D2) :-
     C1 = C2,
     intersection(B1, B2, B),
@@ -114,7 +121,11 @@ intra_construction(C1 <- B1, C2 <- B2, C1 <- ZB, C <- D1, C <- D2) :-
 % Question 1.3b
 %-------------------------------------------------------------------------------
 
-:- op(300, xfx, <-).
+% absorption(A, B, C, D) - input is two rules A & B with different heads, returns
+%                          the smaller input (B = D if |A| > |B|) unmodified with 
+%                          the difference to the larger input alongside the 
+%                          smaller inputs head (in C if |A| > |B|).
+%                          inputs must be a subset of one another
 
 absorption(C1 <- B1, C2 <- B2, C1 <- B1C2, C2 <- B2) :-
     C1 \= C2,
@@ -131,3 +142,10 @@ absorption(C1 <- B1, C2 <- B2, C1 <- B1, C2 <- B2C1) :-
 %-------------------------------------------------------------------------------
 % Question 1.3c
 %-------------------------------------------------------------------------------
+
+% truncation(A, B, C) - input is two rules with identical heads, returns the 
+%                       intersection of the A & B into C
+
+truncation(C1 <- B1, C2 <- B2, C1 <- B) :-
+    C1 = C2,
+    intersection(B1, B2, B).

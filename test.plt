@@ -151,6 +151,34 @@
                    y <- [a, b, c, d, e],
                    x <- [b, d],
                    y <- [x, a, c, e]).
+
+    test(absorption7, [nondet]) :-
+        absorption(x <- [a],
+                   y <- [a],
+                   x <- [y],
+                   y <- [a]).
 :- end_tests(part1_3b).
+
+:- begin_tests(part1_3c).
+    test(truncation1, [nondet]) :-
+        truncation(x <- [a, b, c, d],
+                   x <- [a, c, j, k],
+                   x <- [a, c]).
+
+    test(truncation2, [nondet]) :-
+        truncation(x <- [a],
+                   x <- [c],
+                   x <- []).
+
+    test(truncation3, [nondet]) :-
+        truncation(x <- [b],
+                   x <- [b],
+                   x <- [b]).
+
+    test(truncation4, [nondet]) :-
+        truncation(x <- [a, b, c, d, q],
+                   x <- [x, t, i, d, b, a, h],
+                   x <- [a, b, d]).
+:- end_tests(part1_3c).
 
 :- run_tests.
