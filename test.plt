@@ -115,4 +115,42 @@
                            z1 <- [o, i, h, q]).
 :- end_tests(part1_3a).
 
+:- begin_tests(part1_3b).
+    test(absorption1, [nondet]) :-
+        absorption(x <- [a, b, c, d, e],
+                   y <- [a, b, c],
+                   x <- [y, d, e],
+                   y <- [a, b, c]).
+
+    test(absorption2, [nondet]) :-
+        absorption(x <- [a, b, c],
+                   y <- [a, b, c, d, e],
+                   x <- [a, b, c],
+                   y <- [x, d, e]).
+
+    test(absorption3, [nondet]) :-
+        absorption(x <- [a, b, c],
+                   y <- [a, b, c],
+                   x <- [y],
+                   y <- [a, b, c]).
+
+    test(absorption4, [nondet]) :-
+        absorption(x <- [a, b, c],
+                   y <- [a, b, c],
+                   x <- [y],
+                   y <- [a, b, c]).
+
+    test(absorption5, [nondet]) :-
+        absorption(x <- [a, b, c, d, e],
+                   y <- [b, d],
+                   x <- [y, a, c, e],
+                   y <- [b, d]).
+
+    test(absorption6, [nondet]) :-
+        absorption(x <- [b, d],
+                   y <- [a, b, c, d, e],
+                   x <- [b, d],
+                   y <- [x, a, c, e]).
+:- end_tests(part1_3b).
+
 :- run_tests.
