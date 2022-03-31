@@ -65,4 +65,54 @@
                 [mc, dm, mc, mc, pum]).
 :- end_tests(part1_2).
 
+:- begin_tests(part1_3a).
+    test(intra_construction1, [nondet]) :-
+        reset_gensym,
+        intra_construction(x <- [b, c, d, e], 
+                           x <- [a, b, d, f],
+                           x <- [b, d, z1],
+                           z1 <- [c, e],
+                           z1 <- [a, f]).
+
+    test(intra_construction2, [nondet]) :-
+        reset_gensym,
+        intra_construction(x <- [b], 
+                           x <- [a],
+                           x <- [z1],
+                           z1 <- [b],
+                           z1 <- [a]).
+
+    test(intra_construction3, [nondet]) :-
+        reset_gensym,
+        intra_construction(x <- [b], 
+                           x <- [b],
+                           x <- [b, z1],
+                           z1 <- [],
+                           z1 <- []).
+
+    test(intra_construction4, [nondet]) :-
+        reset_gensym,
+        intra_construction(x <- [b, c], 
+                           x <- [a, d],
+                           x <- [z1],
+                           z1 <- [b, c],
+                           z1 <- [a, d]).
+    
+    test(intra_construction5, [nondet]) :-
+        reset_gensym,
+        intra_construction(x <- [b, c], 
+                           x <- [b, c],
+                           x <- [b, c, z1],
+                           z1 <- [],
+                           z1 <- []).
+
+    test(intra_construction3, [nondet]) :-
+        reset_gensym,
+        intra_construction(x <- [b, c, d, x, t, y], 
+                           x <- [c, o, i, x, d, t, h, q],
+                           x <- [c, d, x, t, z1],
+                           z1 <- [b, y],
+                           z1 <- [o, i, h, q]).
+:- end_tests(part1_3a).
+
 :- run_tests.
