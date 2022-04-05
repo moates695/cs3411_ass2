@@ -63,14 +63,14 @@ action(mcc,                                 % Move cc from off to cs
        state(cs, RHC, SWC, MW, RHM)).     
 
 action(puc,                                 % Pick up coffee                           
-       state(cs, false, true, MW, RHM),     % Before action, robot at Coffee Shop 
-                                            % without coffee and Sam wants coffee
-       state(cs, true, true, MW, RHM)).     % After action, robot at Coffee Shop 
-                                            % with coffee and Sam wants coffee
+       state(cs, false, SWC, MW, RHM),      % Before action, robot at Coffee Shop 
+                                            % without coffee
+       state(cs, true, SWC, MW, RHM)).      % After action, robot at Coffee Shop 
+                                            % with coffee
 
 action(dc,                                  % Deliver coffee
-       state(off, true, true, MW, RHM),     % Before action, robot at Sams Office
-                                            % with coffee and Sam wants coffee
+       state(off, true, _, MW, RHM),        % Before action, robot at Sams Office
+                                            % with coffee
        state(off, false, false, MW, RHM)).  % After action, robot at Sams Office
                                             % without coffee and Sam does not want coffee
 
