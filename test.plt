@@ -46,8 +46,8 @@
 
     test(id_plan5, [nondet]) :-
         id_plan(state(off, true, true, false, true),
-                state(_, _, false, _, _),
-                [dc]).
+                state(_, _, false, _, false),
+                [dc, dm]).
 
     test(id_plan6, [nondet]) :-
         id_plan(state(mr, true, true, true, true),
@@ -106,13 +106,21 @@
                            z1 <- [],
                            z1 <- []).
 
-    test(intra_construction3, [nondet]) :-
+    test(intra_construction6, [nondet]) :-
         reset_gensym,
         intra_construction(x <- [b, c, d, x, t, y], 
                            x <- [c, o, i, x, d, t, h, q],
                            x <- [c, d, x, t, z1],
                            z1 <- [b, y],
                            z1 <- [o, i, h, q]).
+
+    test(intra_construction7, [nondet]) :-
+        reset_gensym,
+        intra_construction(x <- [c, o, i, x, d, t, h, q], 
+                           x <- [b, c, d, x, t, y],
+                           x <- [c, x, d, t, z1],
+                           z1 <- [o, i, h, q],
+                           z1 <- [b, y]).
 :- end_tests(part1_3a).
 
 :- begin_tests(part1_3b).
@@ -157,7 +165,15 @@
                    y <- [a],
                    x <- [y],
                    y <- [a]).
+
+    test(absorption7, [nondet]) :-
+        absorption(x <- [a, b, c, d, e],
+                   y <- [a],
+                   x <- [y],
+                   y <- [a]).
+
 :- end_tests(part1_3b).
+
 
 :- begin_tests(part1_3c).
     test(truncation1, [nondet]) :-

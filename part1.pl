@@ -30,35 +30,35 @@ sumsq_even([Head|Tail], Sum) :-             % Rule where Head is even
 %                                  RHC = robot has coffee, SWC = Sam wants coffee,
 %                                  MW = mail waiting, RHM = robot has mail
 
-action(mc,                                  % Move c from cs to off
+action(mc,                                  % Move clockwise from cs to off
        state(cs, RHC, SWC, MW, RHM), 
        state(off, RHC, SWC, MW, RHM)).      
 
-action(mc,                                  % Move c from off to lab
+action(mc,                                  % Move clockwise from off to lab
        state(off, RHC, SWC, MW, RHM), 
        state(lab, RHC, SWC, MW, RHM)).     
 
-action(mc,                                  % Move c from lab to mr
+action(mc,                                  % Move clockwise from lab to mr
        state(lab, RHC, SWC, MW, RHM), 
        state(mr, RHC, SWC, MW, RHM)).      
 
-action(mc,                                  % Move c from mr to cs
+action(mc,                                  % Move clockwise from mr to cs
        state(mr, RHC, SWC, MW, RHM), 
        state(cs, RHC, SWC, MW, RHM)).       
 
-action(mcc,                                 % Move cc from cs to mr
+action(mcc,                                 % Move counterclockwise from cs to mr
        state(cs, RHC, SWC, MW, RHM), 
        state(mr, RHC, SWC, MW, RHM)).      
 
-action(mcc,                                 % Move cc from mr to lab
+action(mcc,                                 % Move counterclockwise from mr to lab
        state(mr, RHC, SWC, MW, RHM), 
        state(lab, RHC, SWC, MW, RHM)).     
 
-action(mcc,                                 % Move cc from lab to off
+action(mcc,                                 % Move counterclockwise from lab to off
        state(lab, RHC, SWC, MW, RHM), 
        state(off, RHC, SWC, MW, RHM)).    
 
-action(mcc,                                 % Move cc from off to cs
+action(mcc,                                 % Move counterclockwise from off to cs
        state(off, RHC, SWC, MW, RHM), 
        state(cs, RHC, SWC, MW, RHM)).     
 
