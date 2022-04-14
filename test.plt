@@ -132,9 +132,9 @@
 
     test(absorption2, [nondet]) :-
         absorption(x <- [a, b, c],
-                   y <- [a, b, c, d, e],
-                   x <- [a, b, c],
-                   y <- [x, d, e]).
+                   y <- [a, b, c],
+                   x <- [y],
+                   y <- [a, b, c]).
 
     test(absorption3, [nondet]) :-
         absorption(x <- [a, b, c],
@@ -143,33 +143,21 @@
                    y <- [a, b, c]).
 
     test(absorption4, [nondet]) :-
-        absorption(x <- [a, b, c],
-                   y <- [a, b, c],
-                   x <- [y],
-                   y <- [a, b, c]).
-
-    test(absorption5, [nondet]) :-
         absorption(x <- [a, b, c, d, e],
                    y <- [b, d],
                    x <- [y, a, c, e],
                    y <- [b, d]).
 
-    test(absorption6, [nondet]) :-
-        absorption(x <- [b, d],
-                   y <- [a, b, c, d, e],
-                   x <- [b, d],
-                   y <- [x, a, c, e]).
-
-    test(absorption7, [nondet]) :-
+    test(absorption5, [nondet]) :-
         absorption(x <- [a],
                    y <- [a],
                    x <- [y],
                    y <- [a]).
 
-    test(absorption7, [nondet]) :-
+    test(absorption6, [nondet]) :-
         absorption(x <- [a, b, c, d, e],
                    y <- [a],
-                   x <- [y],
+                   x <- [y, b, c, d, e],
                    y <- [a]).
 
 :- end_tests(part1_3b).
