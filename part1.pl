@@ -143,3 +143,4 @@ absorption(C1 <- B1, C2 <- B2, C1 <- B1C2, C2 <- B2) :-
 truncation(C1 <- B1, C2 <- B2, C1 <- B) :-
     C1 = C2,
     intersection(B1, B2, B).
+
