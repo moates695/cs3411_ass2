@@ -63,9 +63,9 @@ action(mcc,                                 % Move counterclockwise from off to 
        state(cs, RHC, SWC, MW, RHM)).     
 
 action(puc,                                 % Pick up coffee                           
-       state(cs, false, true, MW, RHM),      % Before action, robot at Coffee Shop 
+       state(cs, false, true, MW, RHM),     % Before action, robot at Coffee Shop 
                                             % without coffee and Sam wants coffee
-       state(cs, true, true, MW, RHM)).      % After action, robot at Coffee Shop 
+       state(cs, true, true, MW, RHM)).     % After action, robot at Coffee Shop 
                                             % with coffee and Sam wants coffee
 
 action(dc,                                  % Deliver coffee
@@ -110,28 +110,26 @@ id_plan(Start, Goal, Plan) :-
 %                                     the differences D & E cast to created predicate z
 
 intra_construction(C1 <- B1, C2 <- B2, C1 <- ZB, C <- D1, C <- D2) :-
-    C1 = C2,
-    intersection(B1, B2, B),
-    gensym(z, C),
-    subtract(B1, B, D1),
-    subtract(B2, B, D2),
-    append(B, [C], ZB).
+    C1 = C2,				% Heads must be same
+    intersection(B1, B2, B),		% Find argument intersection
+    gensym(z, C),			% Create new variable z
+    subtract(B1, B, D1),		% Subtract intersection from argument 1
+    subtract(B2, B, D2),		% Subtract intersetion from argument 2
+    append(B, [C], ZB).			% Append z to intersection
 
 %-------------------------------------------------------------------------------
 % Question 1.3b
 %-------------------------------------------------------------------------------
 
 % absorption(A, B, C, D) - input is two rules A & B with different heads, returns
-%                          the smaller input (B = D if |A| > |B|) unmodified with 
-%                          the difference to the larger input alongside the 
-%                          smaller inputs head (in C if |A| > |B|).
-%                          inputs must be a subset of one another
+%                          the background clause unmodified with the background
+%                          clauses head at the beginning of the first argument 
 
 absorption(C1 <- B1, C2 <- B2, C1 <- B1C2, C2 <- B2) :-
-    C1 \= C2,
-    subset(B2, B1),
-    subtract(B1, B2, B),
-    append([C2], B, B1C2).
+    C1 \= C2,				% Heads must be different
+    subset(B2, B1),			% Second argument must be background clause
+    subtract(B1, B2, B),		% Subtract background clause from first argument
+    append([C2], B, B1C2).		% Append subtraction to first argument
 
 %-------------------------------------------------------------------------------
 % Question 1.3c
@@ -141,6 +139,6 @@ absorption(C1 <- B1, C2 <- B2, C1 <- B1C2, C2 <- B2) :-
 %                       intersection of the A & B into C
 
 truncation(C1 <- B1, C2 <- B2, C1 <- B) :-
-    C1 = C2,
-    intersection(B1, B2, B).
+    C1 = C2,				% Heads must be same
+    intersection(B1, B2, B).		% Return intersection between arguments
 
